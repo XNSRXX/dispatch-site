@@ -300,7 +300,15 @@ nav {
   .collab-title em { font-style: italic; color: var(--gold-light); }
   .collab-desc { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.85; font-weight: 300; max-width: 580px; margin: 0 auto; }
   .collab-divider { width: 60px; height: 1px; background: var(--gold); opacity: 0.4; margin: 32px auto; }
-
+  .collab-logos-wrapper {
+    display: flex !important;
+    flex-direction: row !important; /* Forces them side-by-side */
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Space between the two logos */
+    flex-wrap: nowrap !important; /* PREVENTS the "different line" issue */
+    width: 100%;
+    }
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(42,34,24,0.6); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
@@ -415,6 +423,14 @@ nav {
 
   
   .hero-blob-wrap { height: 300px; }
+  .collab-logos-wrapper img {
+    max-width: 120px !important; /* Shrink them slightly to fit the width */
+    height: auto;
+  }
+  
+  .collab-logos-wrapper {
+    gap: 10px; /* Tighten the gap for small screens */
+  }
 
   /* Rest of your grid fixes */
   .about-grid { grid-template-columns: 1fr; gap: 60px; }
@@ -714,17 +730,15 @@ nav {
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo-wrap">
-    <img src="AG.png" alt="AG" class="footer-logo-img">
-    
-    <span class="footer-logo-text" style="color: var(--gold);">x</span>
-    
-    <img src="HN.png" alt="HN" class="footer-logo-img">
+    <span class="footer-logo-text">Ava Global</span>
+    <span class="footer-x">x</span>
+    <span class="footer-logo-text">Haitham Naksho</span>
   </div>
 
   <div class="footer-divider"></div>
   
   <p class="footer-text">
-    &copy; 2026 AG x HN Dispatch Training. All rights reserved.
+    &copy; 2026 Ava Global x Haitham Naksho Dispatch Training. All rights reserved.
   </p>
 </footer>
 
