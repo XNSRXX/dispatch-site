@@ -337,51 +337,55 @@ nav {
   section, #collab { padding: 70px 24px; }
 
   /* ADJUSTED: Reduced bottom padding so the image isn't pushed too far down */
-  #home { padding: 110px 24px 60px; } 
+  /* 1. Reset Home padding to remove the massive gap at the bottom */
+  #home { 
+    padding: 100px 24px 40px !important; 
+  }
 
-  /* Ensures the stack order: Text first, then Image */
+  /* 2. Force the stack: Text first, then Image */
   .hero-inner { 
     flex-direction: column !important; 
-    min-height: auto; 
-    text-align: center; /* Optional: Looks better on mobile */
-  }
-
-  .hero-image-col { 
-    position: relative; 
-    right: auto; 
-    top: auto; 
-    transform: none; 
-    width: 100%; 
-    max-width: 450px; 
-    /* This margin creates the space BELOW the text */
-    margin: 40px auto 0; 
-    height: auto; 
-    display: flex;
-    flex-direction: column;
     align-items: center;
+    text-align: center;
   }
 
-  /* Target the wrapper that has the mask/blur */
+  /* 3. Push the image container DOWN below the buttons */
+  .hero-image-col { 
+    position: relative !important; 
+    width: 100%; 
+    max-width: 420px; 
+    /* This margin-top pushes it away from the "About Me" button */
+    margin: 80px auto 0 !important; 
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    transform: none !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  /* 4. Ensure the mask/fade behaves on mobile */
   .hero-image-col div[style*="mask-image"] {
     position: relative !important;
-    left: 0 !important;
-    transform: none !important;
     width: 100% !important;
+    transform: none !important;
+    left: 0 !important;
     bottom: 0 !important;
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
-    mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%) !important;
   }
 
+  /* 5. Scale the team image to fit the screen */
   .hero-image-col img {
     width: 100% !important; 
     height: auto !important;
-    display: block;
   }
 
-  /* Hide the circle on mobile to keep the layout clean */
+  /* 6. Hide the decorative circle so it doesn't mess with the buttons */
   .hero-circle { 
-    display: none;
+    display: none !important; 
   }
+
   
   .hero-blob-wrap { height: 300px; }
 
