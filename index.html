@@ -328,15 +328,25 @@ nav {
   .nav-links { gap: 16px; }
   .nav-links a { font-size: 0.75rem; }
   section, #collab { padding: 70px 24px; }
-  #home { padding: 110px 24px 300px; }
-  .hero-inner { flex-direction: column; min-height: auto; }
+
+  /* ADJUSTED: Reduced bottom padding so the image isn't pushed too far down */
+  #home { padding: 110px 24px 60px; } 
+
+  /* Ensures the stack order: Text first, then Image */
+  .hero-inner { 
+    flex-direction: column !important; 
+    min-height: auto; 
+    text-align: center; /* Optional: Looks better on mobile */
+  }
+
   .hero-image-col { 
     position: relative; 
     right: auto; 
     top: auto; 
     transform: none; 
-    width: 100%; /* Take up full phone width */
-    max-width: 450px; /* Keep it from getting too huge */
+    width: 100%; 
+    max-width: 450px; 
+    /* This margin creates the space BELOW the text */
     margin: 40px auto 0; 
     height: auto; 
     display: flex;
@@ -351,29 +361,24 @@ nav {
     transform: none !important;
     width: 100% !important;
     bottom: 0 !important;
-    /* Adjust fade for mobile so it's not too "misty" */
     -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
   }
 
-  /* Ensure the team image scales down to fit the phone screen */
   .hero-image-col img {
     width: 100% !important; 
     height: auto !important;
     display: block;
   }
 
-  /* Optional: Adjust or hide the circle/blob if they overlap weirdly */
+  /* Hide the circle on mobile to keep the layout clean */
   .hero-circle { 
-    width: 220px; 
-    height: 220px; 
-    top: 50% !important; /* Center it behind the team */
+    display: none;
   }
   
   .hero-blob-wrap { height: 300px; }
-  
 
-
+  /* Rest of your grid fixes */
   .about-grid { grid-template-columns: 1fr; gap: 60px; }
   .packages-grid { grid-template-columns: 1fr; }
   .package-card.wide { grid-column: 1; }
@@ -382,7 +387,6 @@ nav {
   footer { padding: 48px 24px; }
   .btn-outline { margin-left: 0; margin-top: 12px; display: inline-block; }
   .stats-bar { padding: 24px; gap: 28px; }
-
 }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .hero-content > * { animation: fadeUp 0.8s ease both; }
