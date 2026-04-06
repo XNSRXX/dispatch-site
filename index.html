@@ -335,19 +335,43 @@ nav {
     right: auto; 
     top: auto; 
     transform: none; 
-    width: 280px; 
+    width: 100%; /* Take up full phone width */
+    max-width: 450px; /* Keep it from getting too huge */
     margin: 40px auto 0; 
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .hero-blob-wrap { height: 300px; }
-  .hero-circle { width: 220px; height: 220px; }
+
+  /* Target the wrapper that has the mask/blur */
+  .hero-image-col div[style*="mask-image"] {
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    /* Adjust fade for mobile so it's not too "misty" */
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%) !important;
+  }
+
+  /* Ensure the team image scales down to fit the phone screen */
+  .hero-image-col img {
+    width: 100% !important; 
+    height: auto !important;
+    display: block;
+  }
+
+  /* Optional: Adjust or hide the circle/blob if they overlap weirdly */
+  .hero-circle { 
+    width: 220px; 
+    height: 220px; 
+    top: 50% !important; /* Center it behind the team */
+  }
   
-  /* FIX: move girl upwards */
-  .hero-girl {
-  height: 290px;
-  position: relative;
-  top: -40px; /* moves upward */
-  display: block; /* ensures positioning applies */
-  }
+  .hero-blob-wrap { height: 300px; }
+  
 
 
   .about-grid { grid-template-columns: 1fr; gap: 60px; }
@@ -358,9 +382,8 @@ nav {
   footer { padding: 48px 24px; }
   .btn-outline { margin-left: 0; margin-top: 12px; display: inline-block; }
   .stats-bar { padding: 24px; gap: 28px; }
+
 }
-
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .hero-content > * { animation: fadeUp 0.8s ease both; }
   .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
