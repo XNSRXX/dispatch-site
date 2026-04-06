@@ -117,15 +117,22 @@ nav {
 }
 
 /* RIGHT IMAGE COLUMN */
-.hero-image-col {
-  position: absolute;
-  right: -20px;
-  top: 47%; /* aligns with text */
-  transform: translateY(-50%);
-  width: 420px;
-  z-index: 3;
-  pointer-events: none;
-}
+.hero-image-col { 
+    position: relative; 
+    right: auto; 
+    top: auto; 
+    transform: none; 
+    width: 100%; 
+    max-width: 450px; 
+    
+    /* CHANGE THIS VALUE: Higher number = moves further down */
+    margin: 100px auto 0; 
+    
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
 /* GROUP CONTROL */
 /* 1. The Container: We need to make sure this isn't pinning everything down */
