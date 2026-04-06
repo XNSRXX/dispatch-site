@@ -331,26 +331,36 @@ nav {
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
-  nav { 
-    padding: 10px 15px !important; 
+ nav { 
+    padding: 8px 12px !important; 
+    justify-content: space-between !important;
   }
 
-  /* 2. Make the logo group slightly smaller so it doesn't hog space */
-  .nav-logo-img {
-    height: 40px !important; /* Shrunk from 56px */
-  }
-  .nav-logo-wrap {
-    gap: 8px !important; /* Tighten space between AG, x, and HN */
+  /* 2. Shrink the logos so they don't overlap the links */
+  .nav-logo-wrap { 
+    gap: 5px !important; 
+    flex-shrink: 0; /* Prevents the logos from being squashed */
   }
 
-  /* 3. Tighten the links so "Collaboration" fits */
+  .nav-logo-img { 
+    height: 32px !important; /* Smaller logos for mobile */
+    width: auto;
+  }
+
+  .nav-divider {
+    font-size: 0.9rem !important;
+    padding: 0 2px !important;
+  }
+
+  /* 3. Fit all 4 links in the remaining space */
   .nav-links { 
-    gap: 10px !important; /* Reduced from 16px/36px */
+    gap: 8px !important; 
+    margin-left: 10px;
   }
 
   .nav-links a { 
-    font-size: 0.7rem !important; /* Slightly smaller text */
-    letter-spacing: 0.05em !important; /* Tighter letters */
+    font-size: 0.65rem !important; /* Smaller font to ensure "Collab" fits */
+    letter-spacing: 0.02em !important;
   }
 
   /* ADJUSTED: Reduced bottom padding so the image isn't pushed too far down */
@@ -441,7 +451,7 @@ nav {
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#courses">Packages</a></li>
-    <li><a href="#collab">Collaboration</a></li>
+    <li><a href="#collab">Collab</a></li>
   </ul>
 </nav>
 
