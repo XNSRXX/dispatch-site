@@ -331,10 +331,27 @@ nav {
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
-  nav { padding: 12px 24px; }
-  .nav-links { gap: 16px; }
-  .nav-links a { font-size: 0.75rem; }
-  section, #collab { padding: 70px 24px; }
+  nav { 
+    padding: 10px 15px !important; 
+  }
+
+  /* 2. Make the logo group slightly smaller so it doesn't hog space */
+  .nav-logo-img {
+    height: 40px !important; /* Shrunk from 56px */
+  }
+  .nav-logo-wrap {
+    gap: 8px !important; /* Tighten space between AG, x, and HN */
+  }
+
+  /* 3. Tighten the links so "Collaboration" fits */
+  .nav-links { 
+    gap: 10px !important; /* Reduced from 16px/36px */
+  }
+
+  .nav-links a { 
+    font-size: 0.7rem !important; /* Slightly smaller text */
+    letter-spacing: 0.05em !important; /* Tighter letters */
+  }
 
   /* ADJUSTED: Reduced bottom padding so the image isn't pushed too far down */
   /* 1. Reset Home padding to remove the massive gap at the bottom */
@@ -449,7 +466,7 @@ nav {
       </p>
 
       <a href="#courses" class="btn-primary">Explore Packages</a>
-      <a href="#about" class="btn-outline">About Me</a>
+      <a href="#about" class="btn-outline">About Us</a>
     </div>
 
     <!-- RIGHT: IMAGE GROUP -->
