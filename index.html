@@ -26,6 +26,19 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
 
+  /* RTL support for Arabic */
+  body.rtl { direction: rtl; text-align: right; }
+  body.rtl .nav-links { flex-direction: row; }
+  body.rtl .hero-content { text-align: right; }
+  body.rtl .btn-outline { margin-left: 0; margin-right: 14px; }
+  body.rtl .about-badge { right: auto; left: -20px; }
+  body.rtl .package-card.featured::before { right: auto; left: 16px; }
+  body.rtl .package-card.limited::after { left: auto; right: 16px; }
+  body.rtl .modal-close { right: auto; left: 32px; }
+  body.rtl .course-features li { flex-direction: row; }
+  body.rtl .course-features li::before { margin-left: 10px; margin-right: 0; }
+  body.rtl .hero-image-col { right: auto; left: -20px; }
+
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -35,177 +48,130 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 60px;
-  background: rgba(255,253,247,0.93);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
 
-/* Added gap: 12px to keep the logos and x separated */
-.nav-logo-wrap { 
-  display: flex; 
-  align-items: center; 
-  text-decoration: none; 
-  gap: 12px; 
-}
+  .nav-logo-wrap { 
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
+    gap: 12px; 
+  }
 
-.nav-logo-img { height: 56px; width: auto; object-fit: contain; }
+  .nav-logo-img { height: 56px; width: auto; object-fit: contain; }
 
-/* The Golden X Style */
-.nav-divider {
-  color: #C9A84C; /* Your brand gold */
-  font-family: serif;
-  font-style: BOLD;
-  font-size: 1.2rem;
-  font-weight: 400;
-  /* This ensures it aligns visually with the middle of the logos */
-  transform: translateY(-1px); 
-}
+  .nav-divider {
+    color: var(--gold);
+    font-family: serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    transform: translateY(-1px); 
+  }
 
-.nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
 
-.nav-links a { 
-  text-decoration: none; 
-  color: var(--text-mid); 
-  font-size: 0.85rem; 
-  font-weight: 500; 
-  letter-spacing: 0.12em; 
-  text-transform: uppercase; 
-  transition: color 0.2s; 
-}
+  .nav-links a { 
+    text-decoration: none; 
+    color: var(--text-mid); 
+    font-size: 0.85rem; 
+    font-weight: 500; 
+    letter-spacing: 0.12em; 
+    text-transform: uppercase; 
+    transition: color 0.2s; 
+  }
 
-.nav-links a:hover { color: var(--gold); }
-  /* HERO */
-#home {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 120px 60px 80px;
-  overflow: hidden;
-}
+  .nav-links a:hover { color: var(--gold); }
 
-/* Background */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 70% at 80% 50%, var(--blue-soft) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 10% 80%, var(--gold-pale) 0%, transparent 60%),
-    var(--white);
-}
+  /* GOLDEN AR/EN BUTTON */
+  .lang-switch {
+    background: linear-gradient(145deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(201,168,76,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-left: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
 
-/* Layout */
-.hero-inner {
-  position: relative;
-  max-width: 1200px;
-  width: 100%;
-  min-height: 520px;
-  display: flex;
-  align-items: center;
-}
+  .lang-switch:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(201,168,76,0.6);
+  }
 
-/* LEFT TEXT */
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 560px;
-  flex-shrink: 0;
-}
+  body.rtl .lang-switch { margin-left: 0; margin-right: 20px; }
 
-/* RIGHT IMAGE COLUMN */
-.hero-image-col { 
-    position: relative; 
-    right: auto; 
-    top: auto; 
-    transform: none; 
-    width: 100%; 
-    max-width: 450px; 
-    
-    /* CHANGE THIS VALUE: Higher number = moves further down */
-    margin: 100px auto 0; 
-    
-    height: auto; 
+  /* HERO - FIXED IMAGE POSITIONING */
+  #home {
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    position: relative;
+    padding: 120px 60px 80px;
+    overflow: hidden;
   }
 
-/* GROUP CONTROL */
-/* 1. The Container: We need to make sure this isn't pinning everything down */
-.hero-image-col {
-  position: absolute;
-  right: -20px;
-  top: 40%; /* Moved up from 47% */
-  transform: translateY(-50%);
-  width: 500px; /* Made wider for the bigger shapes */
-  z-index: 3;
-}
-
-/* 2. The Wrapper: Remove any height restrictions */
-.hero-blob-wrap {
-  position: relative;
-  width: 100%;
-  height: 600px; /* Increased height */
-  overflow: visible !important;
-}
-
-/* 3. The Shapes: Made them much larger and pushed them down to cover her waist */
-/* Yellow blob - Moved UP to catch her bottom edge */
-/* Yellow blob - Made tall and positioned behind her head */
-/* Yellow blob - Manually shoved UP behind her head */
-.hero-blob {
-  position: absolute;
-  top: 50%; /* Start at center */
-  left: 50%;
-  /* -50% centers it, -250px shoves it up to her head level.
-     If it's still too low, change -250px to -350px */
-  transform: translate(-50%, calc(-50% - 250px)); 
-  z-index: 1;
-}
-
-.hero-blob svg {
-  width: 600px; 
-  height: 600px;
-}
-
-
-/* Black Circle - Slightly smaller */
-.hero-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Reduced from 500px to 440px for a tighter fit */
-  width: 440px; 
-  height: 440px;
-  border-radius: 50%;
-  border: 2.5px solid var(--text-dark);
-  /* Keep this calc matching your previous 'best' height */
-  transform: translate(-50%, calc(-50% - 200px)) rotate(-15deg);
-  z-index: 2;
-}
-
-/* Girl - Added a Mask to hide the abrupt bottom cut */
-.hero-girl {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 550px;
-  transform: translate(-50%, calc(-50% - 280px)); 
-  z-index: 3;
-  filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.1));
-  
-  /* THIS HIDES THE ABRUPT CUT: It fades the bottom 20% of the image */
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-  /* For the removebg version which already has alpha, no blend needed */
-  .hero-girl.transparent {
-    mix-blend-mode: normal;
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 50%, var(--blue-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, var(--gold-pale) 0%, transparent 60%),
+      var(--white);
   }
+
+  .hero-inner {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 560px;
+    flex-shrink: 0;
+  }
+
+  .hero-image-col { 
+    position: relative;
+    width: 500px;
+    height: 500px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 550px;
+    object-fit: contain;
+    display: block;
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  }
+
+  body.rtl .hero-image-col { margin-left: 0; }
 
   .hero-tag { display: inline-block; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; padding: 6px 16px; border: 1px solid var(--gold); border-radius: 40px; margin-bottom: 32px; }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 4.8vw, 5rem); font-weight: 300; line-height: 1.1; color: var(--text-dark); margin-bottom: 28px; }
@@ -215,12 +181,6 @@ nav {
   .btn-primary:hover { background: #b8932e; transform: translateY(-2px); }
   .btn-outline { display: inline-block; background: transparent; color: var(--text-dark); padding: 13px 36px; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; border-radius: 4px; border: 2px solid var(--text-dark); margin-left: 14px; transition: background 0.2s; cursor: pointer; }
   .btn-outline:hover { background: rgba(0,0,0,0.05); }
-
-  /* STATS */
-  .stats-bar { background: var(--text-dark); padding: 24px 60px; display: flex; gap: 60px; justify-content: center; flex-wrap: wrap; }
-  .stat { text-align: center; }
-  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--gold-light); line-height: 1; }
-  .stat-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 4px; }
 
   /* SECTIONS */
   section { padding: 100px 60px; }
@@ -233,22 +193,20 @@ nav {
   #about { background: var(--white); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
   .about-image-box {
-  width: 100%;
-  aspect-ratio: 4/5;
-  background: linear-gradient(135deg, var(--blue-soft) 0%, var(--gold-pale) 100%);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--blue-soft) 0%, var(--gold-pale) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
-
   .about-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* keeps proportions */
+    object-fit: contain;
   }
-
   .about-image-wrap { position: relative; }
   .about-badge { position: absolute; bottom: -20px; right: -20px; background: var(--gold); color: #fff; padding: 20px 28px; border-radius: 6px; box-shadow: 0 8px 32px rgba(201,168,76,0.35); }
   .about-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; line-height: 1; }
@@ -257,16 +215,17 @@ nav {
   .cred-item { display: flex; align-items: center; gap: 14px; font-size: 0.9rem; color: var(--text-mid); }
   .cred-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 
-  /* COURSES / PACKAGES */
+  /* COURSES */
   #courses { background: var(--blue-soft); }
   .courses-header { max-width: 1200px; margin: 0 auto 60px; }
   .packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 1200px; margin: 0 auto; }
-  /* Terminology card spans full width */
   .package-card { background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
   .package-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(201,168,76,0.15); }
   .package-card.featured { border-color: var(--gold); position: relative; }
-  .package-card.featured::before { content: 'Most Popular'; position: absolute; top: 16px; right: 16px; background: var(--gold); color: #fff; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-  .package-card.limited::after { content: '⚠️ Limited Spots'; position: absolute; top: 16px; left: 16px; background: #e74c3c; color: #fff; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+  .package-card.featured::before { content: 'Most Popular'; position: absolute; top: 16px; right: 16px; background: var(--gold); color: #fff; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 4px 12px; border-radius: 20px; z-index: 2; }
+  .package-card.limited::after { content: '⚠️ Limited Spots'; position: absolute; top: 16px; left: 16px; background: #e74c3c; color: #fff; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 4px 12px; border-radius: 20px; z-index: 2; }
+  body.rtl .package-card.featured::before { right: auto; left: 16px; }
+  body.rtl .package-card.limited::after { left: auto; right: 16px; }
   .package-card.wide { grid-column: 1 / -1; }
   .card-header { padding: 32px 32px 24px; border-bottom: 1px solid var(--border); }
   .card-emoji { font-size: 2rem; margin-bottom: 16px; display: block; }
@@ -279,14 +238,13 @@ nav {
   .course-meta { display: flex; gap: 10px; flex-wrap: wrap; }
   .meta-tag { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-deep); background: var(--blue-soft); padding: 4px 12px; border-radius: 20px; font-weight: 500; }
   .card-footer { padding: 24px 32px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .price-block {}
   .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--text-dark); line-height: 1; }
   .price-sar { font-size: 0.9rem; color: var(--gold); font-weight: 500; margin-top: 3px; }
   .price-note { font-size: 0.72rem; color: var(--text-light); letter-spacing: 0.06em; margin-top: 2px; }
   .btn-register { background: var(--gold); color: #fff; border: none; padding: 12px 26px; border-radius: 4px; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.2s; }
   .btn-register:hover { background: #b8932e; transform: translateY(-1px); }
 
-  /* COLLABORATION */
+  /* COLLAB */
   #collab { background: var(--text-dark); padding: 100px 60px; text-align: center; position: relative; overflow: hidden; }
   #collab::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%); pointer-events: none; }
   .collab-inner { position: relative; max-width: 800px; margin: 0 auto; }
@@ -300,15 +258,7 @@ nav {
   .collab-title em { font-style: italic; color: var(--gold-light); }
   .collab-desc { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.85; font-weight: 300; max-width: 580px; margin: 0 auto; }
   .collab-divider { width: 60px; height: 1px; background: var(--gold); opacity: 0.4; margin: 32px auto; }
-  .collab-logos-wrapper {
-    display: flex !important;
-    flex-direction: row !important; /* Forces them side-by-side */
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* Space between the two logos */
-    flex-wrap: nowrap !important; /* PREVENTS the "different line" issue */
-    width: 100%;
-    }
+
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(42,34,24,0.6); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
@@ -331,226 +281,107 @@ nav {
 
   /* FOOTER */
   footer { background: var(--text-dark); padding: 60px; text-align: center; border-top: 1px solid rgba(201,168,76,0.12); }
-  .footer-logo-img { height: 44px; width: auto; object-fit: contain; }
-  .footer-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--gold-light); letter-spacing: 0.1em; }
+  .footer-logo-wrap { display: flex !important; flex-direction: row !important; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; flex-wrap: nowrap !important; }
+  .footer-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--gold-light); white-space: nowrap; }
+  .footer-x { color: #C9A84C !important; font-weight: 400 !important; font-family: sans-serif; font-size: 1.3rem; text-shadow: 0px 0px 10px rgba(201, 168, 76, 0.3); padding: 0 5px; }
   .footer-text { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
   .footer-divider { width: 60px; height: 1px; background: var(--gold); margin: 28px auto; opacity: 0.4; }
-  .footer-logo-wrap { 
-  display: flex !important; 
-  flex-direction: row !important; 
-  align-items: center; 
-  justify-content: center; 
-  gap: 12px; 
-  margin-bottom: 16px;
-  flex-wrap: nowrap !important;
-}
 
-.footer-logo-text { 
-  font-family: 'Cormorant Garamond', serif; 
-  font-size: 1.2rem; 
-  font-weight: 600; /* Made the names bolder too */
-  color: var(--gold-light); 
-  white-space: nowrap;
-}
-
-/* THE BOLD GOLDEN X */
-.footer-x {
-  color: #C9A84C !important; /* Brighter Gold */
-  font-weight: 400 !important; /* MAXIMUM BOLD */
-  font-family: sans-serif; /* Cleaner font for a sharper 'X' */
-  font-size: 1.3rem; /* Slightly larger than the text */
-  text-shadow: 0px 0px 10px rgba(201, 168, 76, 0.3); /* Subtle glow to make it pop */
-  padding: 0 5px;
-}
-/* RESPONSIVE */
-@media (max-width: 960px) {
- nav { 
-    padding: 8px 12px !important; 
-    justify-content: space-between !important;
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 8px 12px !important; }
+    .nav-logo-wrap { gap: 5px !important; }
+    .nav-logo-img { height: 32px !important; }
+    .nav-divider { font-size: 0.9rem !important; }
+    .nav-links { gap: 8px !important; margin-left: 10px; }
+    .nav-links a { font-size: 0.65rem !important; letter-spacing: 0.02em !important; }
+    .lang-switch { font-size: 0.7rem; padding: 5px 12px; margin-left: 8px; }
+    #home { padding: 100px 24px 40px !important; }
+    .hero-inner { flex-direction: column !important; align-items: center; text-align: center; }
+    .hero-content { max-width: 100%; }
+    .hero-sub { max-width: 100%; }
+    .hero-image-col { width: 100%; max-width: 420px; height: 400px; margin-top: 40px; }
+    .hero-image-wrapper img { max-height: 400px; }
+    .about-grid { grid-template-columns: 1fr; gap: 60px; }
+    .packages-grid { grid-template-columns: 1fr; }
+    .package-card.wide { grid-column: 1; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal-header, .modal-body { padding-left: 24px; padding-right: 24px; }
+    footer { padding: 48px 24px; }
+    .btn-outline { margin-left: 0; margin-top: 12px; display: inline-block; }
+    body.rtl .btn-outline { margin-right: 0; }
+    body.rtl .hero-image-col { left: auto; }
   }
-
-  /* 2. Shrink the logos so they don't overlap the links */
-  .nav-logo-wrap { 
-    gap: 5px !important; 
-    flex-shrink: 0; /* Prevents the logos from being squashed */
-  }
-
-  .nav-logo-img { 
-    height: 32px !important; /* Smaller logos for mobile */
-    width: auto;
-  }
-
-  .nav-divider {
-    font-size: 0.9rem !important;
-    padding: 0 2px !important;
-  }
-
-  /* 3. Fit all 4 links in the remaining space */
-  .nav-links { 
-    gap: 8px !important; 
-    margin-left: 10px;
-  }
-
-  .nav-links a { 
-    font-size: 0.65rem !important; /* Smaller font to ensure "Collab" fits */
-    letter-spacing: 0.02em !important;
-  }
-
-  /* ADJUSTED: Reduced bottom padding so the image isn't pushed too far down */
-  /* 1. Reset Home padding to remove the massive gap at the bottom */
-  #home { 
-    padding: 100px 24px 40px !important; 
-  }
-
-  /* 2. Force the stack: Text first, then Image */
-  .hero-inner { 
-    flex-direction: column !important; 
-    align-items: center;
-    text-align: center;
-  }
-
-  /* 3. Push the image container DOWN below the buttons */
-  .hero-image-col { 
-    position: relative !important; 
-    width: 100%; 
-    max-width: 420px; 
-    /* This margin-top pushes it away from the "About Me" button */
-    margin: 80px auto 0 !important; 
-    height: auto !important;
-    display: flex;
-    justify-content: center;
-    transform: none !important;
-    right: auto !important;
-    top: auto !important;
-  }
-
-  /* 4. Ensure the mask/fade behaves on mobile */
-  .hero-image-col div[style*="mask-image"] {
-    position: relative !important;
-    width: 100% !important;
-    transform: none !important;
-    left: 0 !important;
-    bottom: 0 !important;
-    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%) !important;
-    mask-image: linear-gradient(to bottom, black 90%, transparent 100%) !important;
-  }
-
-  /* 5. Scale the team image to fit the screen */
-  .hero-image-col img {
-    width: 100% !important; 
-    height: auto !important;
-  }
-
-  /* 6. Hide the decorative circle so it doesn't mess with the buttons */
-  .hero-circle { 
-    display: none !important; 
-  }
-
-  
-  .hero-blob-wrap { height: 300px; }
-  .collab-logos-wrapper img {
-    max-width: 120px !important; /* Shrink them slightly to fit the width */
-    height: auto;
-  }
-  
-  .collab-logos-wrapper {
-    gap: 10px; /* Tighten the gap for small screens */
-  }
-  .footer-logo-text {
-    font-size: 0.85rem !important; 
-  }
-  .footer-x {
-    font-size: 1rem !important; /* Keep the X prominent on mobile */
-  }
-  .footer-logo-wrap {
-    gap: 8px;
-  }
-
-  /* Rest of your grid fixes */
-  .about-grid { grid-template-columns: 1fr; gap: 60px; }
-  .packages-grid { grid-template-columns: 1fr; }
-  .package-card.wide { grid-column: 1; }
-  .form-row { grid-template-columns: 1fr; }
-  .modal-header, .modal-body { padding-left: 24px; padding-right: 24px; }
-  footer { padding: 48px 24px; }
-  .btn-outline { margin-left: 0; margin-top: 12px; display: inline-block; }
-  .stats-bar { padding: 24px; gap: 28px; }
-}
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  .hero-content > * { animation: fadeUp 0.8s ease both; }
-  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
-  .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
-  .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
-  .hero-image-col { animation: fadeUp 1s ease both; animation-delay: 0.25s; }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-    <a href="#home" class="nav-logo-wrap">
-      <img class="nav-logo-img" src="AG.png">
-      <span class="nav-divider">x</span>
-      <img class="nav-logo-img" src="HN.png">
-    </a>
-  
-
+  <a href="#home" class="nav-logo-wrap">
+    <img class="nav-logo-img" src="../img/AG.png" alt="Ava Global">
+    <span class="nav-divider">x</span>
+    <img class="nav-logo-img" src="../img/HN.png" alt="Haitham Naksho">
+  </a>
 
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#courses">Packages</a></li>
-    <li><a href="#collab">Collab</a></li>
+    <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+    <li><a href="#about" data-en="About" data-ar="عنّا">About</a></li>
+    <li><a href="#courses" data-en="Packages" data-ar="الباقات">Packages</a></li>
+    <li><a href="#collab" data-en="Collab" data-ar="الشراكة">Collab</a></li>
+    <li>
+      <button class="lang-switch" id="langToggle" aria-label="Switch language">AR</button>
+    </li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO - FIXED IMAGE -->
 <section id="home">
   <div class="hero-bg"></div>
-
   <div class="hero-inner">
-
-    <!-- LEFT: TEXT -->
     <div class="hero-content">
-      <span class="hero-tag">Freight Dispatch Training</span>
-
+      <span class="hero-tag" data-en="Freight Dispatch Training" data-ar="تدريب منسقي الشحن">Freight Dispatch Training</span>
       <h1 class="hero-title">
-        Master<br>
-        <em>Dispatch</em><br>
-        From Anywhere
+        <span data-en="Master" data-ar="أتقن">Master</span><br>
+        <em data-en="Dispatch" data-ar="التنسيق">Dispatch</em><br>
+        <span data-en="From Anywhere" data-ar="من أي مكان">From Anywhere</span>
       </h1>
-
-      <p class="hero-sub">
-        Learn trucking & logistics dispatch remotely. Build real income-generating skills, negotiate freight deals, and start your dispatch career — all from the comfort of your home, anywhere in the world.
-      </p>
-
-      <a href="#courses" class="btn-primary">Explore Packages</a>
-      <a href="#about" class="btn-outline">About Us</a>
+      <p class="hero-sub" data-en="Learn trucking & logistics dispatch remotely. Build real income-generating skills, negotiate freight deals, and start your dispatch career — all from the comfort of your home, anywhere in the world." data-ar="تعلّم تنسيق الشحن والخدمات اللوجستية عن بُعد. اكتسب مهارات مدرة للدخل، وتفاوض على صفقات الشحن، وابدأ مسيرتك المهنية كمنسق شحن — كل ذلك من راحة منزلك، ومن أي مكان في العالم.">Learn trucking & logistics dispatch remotely. Build real income-generating skills, negotiate freight deals, and start your dispatch career — all from the comfort of your home, anywhere in the world.</p>
+      <a href="#courses" class="btn-primary" data-en="Explore Packages" data-ar="استعرض الباقات">Explore Packages</a>
+      <a href="#about" class="btn-outline" data-en="About Us" data-ar="عن المنصة">About Us</a>
     </div>
-
-    <!-- RIGHT: IMAGE GROUP -->
-<div class="hero-image-col" style="position: relative; height: 600px; margin-top: -300px; display: flex; justify-content: center; align-items: flex-end;">
-
-
-  <div style="position: absolute; width: 200%; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; justify-content: center; -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%); mask-image: linear-gradient(to bottom, black 85%, transparent 100%); pointer-events: none;">
     
-    <img src="gg.png" alt="Team" style="width: 870px; height: auto; display: block;">
-
-  </div>
-</div>
-
-</div>
-
+    <!-- FIXED HERO IMAGE -->
+    <div class="hero-image-col">
+      <div class="hero-image-wrapper">
+        <img src="../img/gg.png" alt="Team">
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Students Trained</div></div>
-  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Remote — Work from Home</div></div>
-  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
-  <div class="stat"><div class="stat-num">USA</div><div class="stat-label">Industry Coverage</div></div>
+<section id="why-us" style="padding: 80px 20px; background-color: #fff; overflow: visible;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #c5a059; font-size: 48px; font-weight: 800; margin-bottom: 40px; text-transform: uppercase;" data-en="Why Us?" data-ar="لماذا نحن؟">Why Us?</h2>
+    <div style="text-align: left; color: #444; line-height: 1.8; font-size: 18px;">
+      <p style="margin-bottom: 20px;"><strong style="color: #c5a059; text-transform: uppercase;" data-en="High Dollar Income:" data-ar="دخل مرتفع:">High Dollar Income:</strong> <span data-en="The average dispatcher's income ranges from $800 to $5,000 per month. With high-commission deals, your earning potential is virtually limitless, even when working with local salary limits." data-ar="متوسط دخل المنسق يتراوح بين 800$ و 5000$ شهرياً. مع صفقات العمولات المرتفعة، إمكانيات ربحك لا حدود لها فعلياً، حتى مع العمل بحدود الرواتب المحلية.">The average dispatcher's income ranges from $800 to $5,000 per month. With high-commission deals, your earning potential is virtually limitless, even when working with local salary limits.</span></p>
+      <p style="margin-bottom: 20px;"><strong style="color: #c5a059; text-transform: uppercase;" data-en="Growing Demand:" data-ar="طلب متزايد:">Growing Demand:</strong> <span data-en="Over 3.5 million active trucks are moving across the USA right now. With 70,000+ new trucks entering the market every year, there is a massive and continuous demand for those who manage them." data-ar="أكثر من 3.5 مليون شاحنة نشطة تتحرك عبر الولايات المتحدة الآن. مع دخول أكثر من 70,000 شاحنة جديدة السوق كل عام، هناك طلب هائل ومستمر على من يديرها.">Over 3.5 million active trucks are moving across the USA right now. With 70,000+ new trucks entering the market every year, there is a massive and continuous demand for those who manage them.</span></p>
+      <p style="margin-bottom: 20px;"><strong style="color: #c5a059; text-transform: uppercase;" data-en="Work Entirely Remote:" data-ar="عمل عن بعد بالكامل:">Work Entirely Remote:</strong> <span data-en="Build your career from the comfort of your home, a cafe, or anywhere in the world. All you need is a laptop, a reliable internet connection, and a headset to stay connected to the global market." data-ar="ابنِ مسيرتك المهنية من راحة منزلك، أو مقهى، أو أي مكان في العالم. كل ما تحتاجه هو حاسوب محمول، واتصال إنترنت موثوق، وسماعة رأس للبقاء على اتصال بالسوق العالمي.">Build your career from the comfort of your home, a cafe, or anywhere in the world. All you need is a laptop, a reliable internet connection, and a headset to stay connected to the global market.</span></p>
+      <p style="margin-bottom: 40px;"><strong style="color: #c5a059; text-transform: uppercase;" data-en="No Prior Experience:" data-ar="لا خبرة مسبقة مطلوبة:">No Prior Experience:</strong> <span data-en="You don't need years of university or expensive degrees. This job relies on coordination, communication, and negotiation skills rather than formal diplomas." data-ar="لست بحاجة لسنوات من الجامعة أو شهادات باهظة. تعتمد هذه الوظيفة على مهارات التنسيق والتواصل والتفاوض بدلاً من الشهادات الرسمية.">You don't need years of university or expensive degrees. This job relies on coordination, communication, and negotiation skills rather than formal diplomas.</span></p>
+    </div>
+    <div style="margin-top: 20px;">
+      <img src="../img/map.png" alt="Map" style="width: 100%; max-width: 850px; height: auto; display: block; margin: 0 auto;">
+    </div>
+  </div>
+</section>
+
+<div style="background-color: #2b241a; padding: 50px 0; margin-top: -120px; position: relative; z-index: 20; border-top: 1px solid #c5a059;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; align-items: center; text-align: center;">
+    <div><h3 style="color: #c5a059; font-size: 36px; margin-bottom: 5px; font-weight: bold;">100K+</h3><p style="color: #fff; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;" data-en="Students Trained" data-ar="طالب تم تدريبهم">Students Trained</p></div>
+    <div><h3 style="color: #c5a059; font-size: 36px; margin-bottom: 5px; font-weight: bold;">100%</h3><p style="color: #fff; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;" data-en="Remote — Work From Home" data-ar="عن بُعد — اعمل من المنزل">Remote — Work From Home</p></div>
+    <div><h3 style="color: #c5a059; font-size: 36px; margin-bottom: 5px; font-weight: bold;">4.9 ★</h3><p style="color: #fff; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;" data-en="Average Rating" data-ar="متوسط التقييم">Average Rating</p></div>
+    <div><h3 style="color: #c5a059; font-size: 36px; margin-bottom: 5px; font-weight: bold;">USA</h3><p style="color: #fff; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;" data-en="Industry Coverage" data-ar="تغطية الصناعة">Industry Coverage</p></div>
+  </div>
 </div>
 
 <!-- ABOUT -->
@@ -558,206 +389,170 @@ nav {
   <div class="about-grid">
     <div class="about-image-wrap">
       <div class="about-image-box">
-        <!-- Replace truck SVG with image -->
-        <img src="about me.png" alt="About Me" class="about-image">
+        <img src="../img/about me.png" alt="About Me" class="about-image">
       </div>
-      <!-- Badge stays here, outside the box -->
       <div class="about-badge">
         <div class="about-badge-num">2+</div>
-        <div class="about-badge-text">Years Experience</div>
+        <div class="about-badge-text" data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</div>
       </div>
     </div>
-
     <div class="about-text">
-      <div class="section-tag">About the Instructors</div>
+      <div class="section-tag" data-en="About the Instructors" data-ar="عن المدربين">About the Instructors</div>
       <div class="divider-line"></div>
-      <h2 class="section-title">Real Experience. Real Results.</h2>
-      <p class="section-desc">We started dispatching for US trucking companies remotely and built a thriving career from scratch — no experience needed. Now we teach others the exact system we use to find loads, negotiate rates, and build long-term relationships with carriers.</p>
-      <p class="section-desc" style="margin-top:16px;">Whether you're completely new to logistics or looking to level up your income, our courses are built around practical, hands-on training that gets you earning fast.</p>
+      <h2 class="section-title" data-en="Real Experience. Real Results." data-ar="خبرة حقيقية. نتائج حقيقية.">Real Experience. Real Results.</h2>
+      <p class="section-desc" data-en="We started dispatching for US trucking companies remotely and built a thriving career from scratch — no experience needed. Now we teach others the exact system we use to find loads, negotiate rates, and build long-term relationships with carriers." data-ar="بدأنا العمل كمنسقي شحن لشركات النقل الأمريكية عن بُعد وبنينا مسيرة مهنية مزدهرة من الصفر — بدون خبرة مسبقة. الآن نعلّم الآخرين النظام الدقيق الذي نستخدمه للعثور على الحمولات، والتفاوض على الأسعار، وبناء علاقات طويلة الأمد مع الناقلين.">We started dispatching for US trucking companies remotely and built a thriving career from scratch — no experience needed. Now we teach others the exact system we use to find loads, negotiate rates, and build long-term relationships with carriers.</p>
+      <p class="section-desc" style="margin-top:16px;" data-en="Whether you're completely new to logistics or looking to level up your income, our courses are built around practical, hands-on training that gets you earning fast." data-ar="سواء كنت جديداً كلياً في مجال الخدمات اللوجستية أو تتطلع لزيادة دخلك، فإن دوراتنا مبنية على تدريب عملي وتطبيقي يجعلك تربح بسرعة.">Whether you're completely new to logistics or looking to level up your income, our courses are built around practical, hands-on training that gets you earning fast.</p>
       <div class="credentials">
-        <div class="cred-item"><div class="cred-dot"></div><span>Active US Freight Dispatcher — 3+ years</span></div>
-        <div class="cred-item"><div class="cred-dot"></div><span>Trained 100+ students across the Arab world & globally</span></div>
-        <div class="cred-item"><div class="cred-dot"></div><span>Expert in load boards, rate negotiation & carrier relations</span></div>
-        <div class="cred-item"><div class="cred-dot"></div><span>Work remotely from anywhere — full flexibility</span></div>
+        <div class="cred-item"><div class="cred-dot"></div><span data-en="Active US Freight Dispatcher — 5+ years" data-ar="منسق شحن أمريكي نشط — أكثر من 3 سنوات">Active US Freight Dispatcher — 3+ years</span></div>
+        <div class="cred-item"><div class="cred-dot"></div><span data-en="Trained 100K+ students across the Arab world & globally" data-ar="درّبنا أكثر من 100 ألف طالب في العالم العربي وعالمياً">Trained 100K+ students across the Arab world & globally</span></div>
+        <div class="cred-item"><div class="cred-dot"></div><span data-en="Expert in load boards, rate negotiation & carrier relations" data-ar="خبير في لوحات الحمولات، التفاوض على الأسعار وعلاقات الناقلين">Expert in load boards, rate negotiation & carrier relations</span></div>
+        <div class="cred-item"><div class="cred-dot"></div><span data-en="Work remotely from anywhere — full flexibility" data-ar="اعمل عن بعد من أي مكان — مرونة كاملة">Work remotely from anywhere — full flexibility</span></div>
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- PACKAGES -->
 <section id="courses">
   <div class="courses-header">
-    <div class="section-tag">Training Packages</div>
+    <div class="section-tag" data-en="Training Packages" data-ar="باقات التدريب">Training Packages</div>
     <div class="divider-line"></div>
-    <h2 class="section-title">One Course. Multiple Levels.</h2>
-    <p class="section-desc" style="max-width:580px; margin-top:8px;">Choose the package that fits your goals — from learning the basics to getting personal mentorship. All packages teach you real US freight dispatch from scratch.</p>
+    <h2 class="section-title" data-en="One Course. Multiple Levels." data-ar="دورة واحدة. مستويات متعددة.">One Course. Multiple Levels.</h2>
+    <p class="section-desc" style="max-width:580px; margin-top:8px;" data-en="Choose the package that fits your goals — from learning the basics to getting personal mentorship. All packages teach you real US freight dispatch from scratch." data-ar="اختر الباقة التي تناسب أهدافك — من تعلم الأساسيات إلى الحصول على إرشاد شخصي. جميع الباقات تعلّمك تنسيق الشحن الأمريكي الحقيقي من الصفر.">Choose the package that fits your goals — from learning the basics to getting personal mentorship. All packages teach you real US freight dispatch from scratch.</p>
   </div>
-
   <div class="packages-grid">
-
     <!-- Starter -->
     <div class="package-card">
       <div class="card-header">
         <span class="card-emoji">🚛</span>
-        <div class="card-title">Starter Package</div>
-        <div class="card-subtitle">Learn the basics the right way — everything you need to get started in dispatch</div>
+        <div class="card-title" data-en="Starter Package" data-ar="الباقة الأساسية">Starter Package</div>
+        <div class="card-subtitle" data-en="Learn the basics the right way — everything you need to get started in dispatch" data-ar="تعلّم الأساسيات بالطريقة الصحيحة — كل ما تحتاجه للبدء في مجال التنسيق">Learn the basics the right way — everything you need to get started in dispatch</div>
       </div>
       <div class="card-body">
         <ul class="course-features">
-          <li>What is freight dispatch & how the industry works</li>
-          <li>How to find and approach carriers</li>
-          <li>Load boards walkthrough (DAT, Truckstop & more)</li>
-          <li>Basic rate negotiation techniques</li>
-          <li>Understanding MC numbers, authority & paperwork</li>
-          <li>How to find your first client</li>
+          <li data-en="What is freight dispatch & how the industry works" data-ar="ما هو تنسيق الشحن وكيف تعمل الصناعة">What is freight dispatch & how the industry works</li>
+          <li data-en="How to find and approach carriers" data-ar="كيفية العثور على الناقلين والتواصل معهم">How to find and approach carriers</li>
+          <li data-en="Load boards walkthrough (DAT, Truckstop & more)" data-ar="شرح لوحات الحمولات (DAT، Truckstop وغيرها)">Load boards walkthrough (DAT, Truckstop & more)</li>
+          <li data-en="Basic rate negotiation techniques" data-ar="تقنيات التفاوض الأساسية على الأسعار">Basic rate negotiation techniques</li>
+          <li data-en="Understanding MC numbers, authority & paperwork" data-ar="فهم أرقام MC، الصلاحيات والأعمال الورقية">Understanding MC numbers, authority & paperwork</li>
+          <li data-en="How to find your first client" data-ar="كيفية العثور على عميلك الأول">How to find your first client</li>
         </ul>
         <div class="course-meta">
-          <span class="meta-tag">Self-Paced</span><span class="meta-tag">Online</span><span class="meta-tag">Beginner</span>
+          <span class="meta-tag" data-en="Self-Paced" data-ar="ذاتي">Self-Paced</span><span class="meta-tag" data-en="Online" data-ar="أونلاين">Online</span><span class="meta-tag" data-en="Beginner" data-ar="مبتدئ">Beginner</span>
         </div>
       </div>
       <div class="card-footer">
-        <div class="price-block">
-          <div class="price-amount">$99</div>
-          <div class="price-sar">372 SAR</div>
-          <div class="price-note">One-time payment</div>
-        </div>
-        <button class="btn-register" onclick="openModal('Starter Package','$99 / 372 SAR')">Enrol Now</button>
+        <div class="price-block"><div class="price-amount">$99</div><div class="price-sar">372 SAR</div><div class="price-note" data-en="One-time payment" data-ar="دفعة واحدة">One-time payment</div></div>
+        <button class="btn-register" onclick="openModal('Starter Package','$99 / 372 SAR')" data-en="Enrol Now" data-ar="سجّل الآن">Enrol Now</button>
       </div>
     </div>
-
     <!-- Pro -->
     <div class="package-card featured">
       <div class="card-header">
         <span class="card-emoji">💎</span>
-        <div class="card-title">Pro Package</div>
-        <div class="card-subtitle">Master negotiation & build income-generating carrier relationships</div>
+        <div class="card-title" data-en="Pro Package" data-ar="الباقة الاحترافية">Pro Package</div>
+        <div class="card-subtitle" data-en="Master negotiation & build income-generating carrier relationships" data-ar="أتقن التفاوض وابني علاقات مربحة مع الناقلين">Master negotiation & build income-generating carrier relationships</div>
       </div>
       <div class="card-body">
         <ul class="course-features">
-          <li>Everything in Starter, plus:</li>
-          <li>Advanced rate negotiation scripts & strategies</li>
-          <li>Building long-term carrier partnerships</li>
-          <li>Dispatcher contracts & commission structures</li>
-          <li>How to scale to multiple carriers</li>
-          <li>Growing your dispatch business income</li>
+          <li data-en="Everything in Starter, plus:" data-ar="كل ما في الأساسية، بالإضافة إلى:">Everything in Starter, plus:</li>
+          <li data-en="Advanced rate negotiation scripts & strategies" data-ar="نصوص واستراتيجيات متقدمة للتفاوض على الأسعار">Advanced rate negotiation scripts & strategies</li>
+          <li data-en="Building long-term carrier partnerships" data-ar="بناء شراكات طويلة الأمد مع الناقلين">Building long-term carrier partnerships</li>
+          <li data-en="Dispatcher contracts & commission structures" data-ar="عقود المنسقين وهياكل العمولات">Dispatcher contracts & commission structures</li>
+          <li data-en="How to scale to multiple carriers" data-ar="كيفية التوسع للعمل مع عدة ناقلين">How to scale to multiple carriers</li>
+          <li data-en="Growing your dispatch business income" data-ar="تنمية دخل أعمال التنسيق الخاصة بك">Growing your dispatch business income</li>
         </ul>
         <div class="course-meta">
-          <span class="meta-tag">Self-Paced</span><span class="meta-tag">Online</span><span class="meta-tag">Intermediate</span>
+          <span class="meta-tag" data-en="Self-Paced" data-ar="ذاتي">Self-Paced</span><span class="meta-tag" data-en="Online" data-ar="أونلاين">Online</span><span class="meta-tag" data-en="Intermediate" data-ar="متوسط">Intermediate</span>
         </div>
       </div>
       <div class="card-footer">
-        <div class="price-block">
-          <div class="price-amount">$180</div>
-          <div class="price-sar">675 SAR</div>
-          <div class="price-note">One-time payment</div>
-        </div>
-        <button class="btn-register" onclick="openModal('Pro Package','$180 / 675 SAR')">Enrol Now</button>
+        <div class="price-block"><div class="price-amount">$180</div><div class="price-sar">675 SAR</div><div class="price-note" data-en="One-time payment" data-ar="دفعة واحدة">One-time payment</div></div>
+        <button class="btn-register" onclick="openModal('Pro Package','$180 / 675 SAR')" data-en="Enrol Now" data-ar="سجّل الآن">Enrol Now</button>
       </div>
     </div>
-
     <!-- VIP -->
     <div class="package-card limited" style="position:relative;">
       <div class="card-header">
         <span class="card-emoji">✨</span>
-        <div class="card-title">VIP Package</div>
-        <div class="card-subtitle">Personal mentorship with me — full guidance until you land your first carrier</div>
+        <div class="card-title" data-en="VIP Package" data-ar="الباقة المميزة VIP">VIP Package</div>
+        <div class="card-subtitle" data-en="Personal mentorship with me — full guidance until you land your first carrier" data-ar="إرشاد شخصي معي — توجيه كامل حتى تتعاقد مع أول ناقل">Personal mentorship with me — full guidance until you land your first carrier</div>
       </div>
       <div class="card-body">
         <ul class="course-features">
-          <li>Everything in Pro, plus:</li>
-          <li>1-on-1 personal mentorship sessions with the instructor</li>
-          <li>Live calls to review your carrier outreach & pitches</li>
-          <li>Custom action plan built around your schedule</li>
-          <li>Direct support via WhatsApp/Telegram</li>
-          <li>Guidance until you close your first deal</li>
+          <li data-en="Everything in Pro, plus:" data-ar="كل ما في الاحترافية، بالإضافة إلى:">Everything in Pro, plus:</li>
+          <li data-en="1-on-1 personal mentorship sessions with the instructor" data-ar="جلسات إرشاد شخصية فردية مع المدرب">1-on-1 personal mentorship sessions with the instructor</li>
+          <li data-en="Live calls to review your carrier outreach & pitches" data-ar="مكالمات مباشرة لمراجعة تواصلك مع الناقلين وعروضك">Live calls to review your carrier outreach & pitches</li>
+          <li data-en="Custom action plan built around your schedule" data-ar="خطة عمل مخصصة وفقاً لجدولك">Custom action plan built around your schedule</li>
+          <li data-en="Direct support via WhatsApp/Telegram" data-ar="دعم مباشر عبر واتساب/تيليجرام">Direct support via WhatsApp/Telegram</li>
+          <li data-en="Guidance until you close your first deal" data-ar="توجيه حتى تغلق صفقتك الأولى">Guidance until you close your first deal</li>
         </ul>
         <div class="course-meta">
-          <span class="meta-tag">Mentorship</span><span class="meta-tag">Limited Spots</span><span class="meta-tag">All Levels</span>
+          <span class="meta-tag" data-en="Mentorship" data-ar="إرشاد">Mentorship</span><span class="meta-tag" data-en="Limited Spots" data-ar="مقاعد محدودة">Limited Spots</span><span class="meta-tag" data-en="All Levels" data-ar="كل المستويات">All Levels</span>
         </div>
       </div>
       <div class="card-footer">
-        <div class="price-block">
-          <div class="price-amount">$320</div>
-          <div class="price-sar">1,202 SAR</div>
-          <div class="price-note">One-time · Spots limited</div>
-        </div>
-        <button class="btn-register" onclick="openModal('VIP Package','$320 / 1,202 SAR')">Enrol Now</button>
+        <div class="price-block"><div class="price-amount">$320</div><div class="price-sar">1,202 SAR</div><div class="price-note" data-en="One-time · Spots limited" data-ar="دفعة واحدة · مقاعد محدودة">One-time · Spots limited</div></div>
+        <button class="btn-register" onclick="openModal('VIP Package','$320 / 1,202 SAR')" data-en="Enrol Now" data-ar="سجّل الآن">Enrol Now</button>
       </div>
     </div>
-
     <!-- VIP Couples -->
     <div class="package-card limited" style="position:relative;">
       <div class="card-header">
         <span class="card-emoji">✨</span>
-        <div class="card-title">VIP Couples / Friends 😉</div>
-        <div class="card-subtitle">Grow together — full VIP guidance for two people at once</div>
+        <div class="card-title" data-en="VIP Couples / Friends 😉" data-ar="VIP للأزواج / الأصدقاء 😉">VIP Couples / Friends 😉</div>
+        <div class="card-subtitle" data-en="Grow together — full VIP guidance for two people at once" data-ar="انموا معاً — إرشاد VIP كامل لشخصين في نفس الوقت">Grow together — full VIP guidance for two people at once</div>
       </div>
       <div class="card-body">
         <ul class="course-features">
-          <li>Full VIP Package for 2 people</li>
-          <li>Joint mentorship sessions — learn as a team</li>
-          <li>Perfect for couples or friends starting together</li>
-          <li>Two sets of custom action plans</li>
-          <li>Shared WhatsApp/Telegram support group</li>
-          <li>Build your dispatch business together</li>
+          <li data-en="Full VIP Package for 2 people" data-ar="باقة VIP كاملة لشخصين">Full VIP Package for 2 people</li>
+          <li data-en="Joint mentorship sessions — learn as a team" data-ar="جلسات إرشاد مشتركة — تعلّموا كفريق">Joint mentorship sessions — learn as a team</li>
+          <li data-en="Perfect for couples or friends starting together" data-ar="مثالية للأزواج أو الأصدقاء الذين يبدأون معاً">Perfect for couples or friends starting together</li>
+          <li data-en="Two sets of custom action plans" data-ar="مجموعتان من خطط العمل المخصصة">Two sets of custom action plans</li>
+          <li data-en="Shared WhatsApp/Telegram support group" data-ar="مجموعة دعم مشتركة على واتساب/تيليجرام">Shared WhatsApp/Telegram support group</li>
+          <li data-en="Build your dispatch business together" data-ar="ابنوا أعمال التنسيق الخاصة بكم معاً">Build your dispatch business together</li>
         </ul>
         <div class="course-meta">
-          <span class="meta-tag">2 People</span><span class="meta-tag">Limited Spots</span><span class="meta-tag">All Levels</span>
+          <span class="meta-tag" data-en="2 People" data-ar="شخصان">2 People</span><span class="meta-tag" data-en="Limited Spots" data-ar="مقاعد محدودة">Limited Spots</span><span class="meta-tag" data-en="All Levels" data-ar="كل المستويات">All Levels</span>
         </div>
       </div>
       <div class="card-footer">
-        <div class="price-block">
-          <div class="price-amount">$600</div>
-          <div class="price-sar">2,253 SAR</div>
-          <div class="price-note">One-time · For 2 people</div>
-        </div>
-        <button class="btn-register" onclick="openModal('VIP Couples/Friends Package','$600 / 2,253 SAR')">Enrol Now</button>
+        <div class="price-block"><div class="price-amount">$600</div><div class="price-sar">2,253 SAR</div><div class="price-note" data-en="One-time · For 2 people" data-ar="دفعة واحدة · لشخصين">One-time · For 2 people</div></div>
+        <button class="btn-register" onclick="openModal('VIP Couples/Friends Package','$600 / 2,253 SAR')" data-en="Enrol Now" data-ar="سجّل الآن">Enrol Now</button>
       </div>
     </div>
-
-    <!-- Terminology Course — full width -->
+    <!-- Terminology -->
     <div class="package-card wide" style="border-color: var(--text-dark);">
       <div class="card-header" style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:20px;">
         <div>
           <span class="card-emoji">🚫</span>
-          <div class="card-title">Dispatch Terminology Course</div>
-          <div class="card-subtitle">A focused recorded course covering all dispatch & logistics terminology you need to communicate confidently with brokers, carriers & shippers</div>
+          <div class="card-title" data-en="Dispatch Terminology Course" data-ar="دورة مصطلحات التنسيق">Dispatch Terminology Course</div>
+          <div class="card-subtitle" data-en="A focused recorded course covering all dispatch & logistics terminology you need to communicate confidently with brokers, carriers & shippers" data-ar="دورة مسجلة مركزة تغطي جميع مصطلحات التنسيق والخدمات اللوجستية التي تحتاجها للتواصل بثقة مع الوسطاء والناقلين والشاحنين">A focused recorded course covering all dispatch & logistics terminology you need to communicate confidently with brokers, carriers & shippers</div>
         </div>
         <div class="course-meta" style="align-self:center;">
-          <span class="meta-tag">Recorded 💻</span><span class="meta-tag">1 Month Access</span><span class="meta-tag">All Levels</span>
+          <span class="meta-tag" data-en="Recorded 💻" data-ar="مسجلة 💻">Recorded 💻</span><span class="meta-tag" data-en="1 Month Access" data-ar="وصول لمدة شهر">1 Month Access</span><span class="meta-tag" data-en="All Levels" data-ar="كل المستويات">All Levels</span>
         </div>
       </div>
       <div class="card-footer" style="justify-content:flex-start; gap:40px;">
-        <div class="price-block">
-          <div class="price-amount">$50</div>
-          <div class="price-note">1 month recorded access</div>
-        </div>
-        <button class="btn-register" onclick="openModal('Dispatch Terminology Course','$50')">Enrol Now</button>
+        <div class="price-block"><div class="price-amount">$50</div><div class="price-note" data-en="1 month recorded access" data-ar="وصول لمدة شهر للمحتوى المسجل">1 month recorded access</div></div>
+        <button class="btn-register" onclick="openModal('Dispatch Terminology Course','$50')" data-en="Enrol Now" data-ar="سجّل الآن">Enrol Now</button>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- COLLABORATION -->
+<!-- COLLAB -->
 <section id="collab">
   <div class="collab-inner">
-    <span class="collab-tag">Strategic Partnership</span>
+    <span class="collab-tag" data-en="Strategic Partnership" data-ar="شراكة استراتيجية">Strategic Partnership</span>
     <div class="collab-logos">
-      <div class="collab-logo-box">
-        <img class="collab-logo-img" src="AG.png" alt="Ava Global">
-        <span class="collab-logo-label">Ava Global</span>
-      </div>
+      <div class="collab-logo-box"><img class="collab-logo-img" src="../img/AG.png" alt="Ava Global"><span class="collab-logo-label">Ava Global</span></div>
       <div class="collab-x">×</div>
-      <div class="collab-logo-box">
-        <img class="collab-logo-img" src="HN.png" alt="Haitham Naksho">
-        <span class="collab-logo-label">Haitham Naksho</spa+zzxGOy/A1a8cZVo78sNBtqNrX07Ty2nn>
-      </div>
+      <div class="collab-logo-box"><img class="collab-logo-img" src="../img/HN.png" alt="Haitham Naksho"><span class="collab-logo-label">Haitham Naksho</span></div>
     </div>
     <div class="collab-divider"></div>
-    <h2 class="collab-title">A <em>Collaborative</em> Platform<br>for Dispatch Excellence</h2>
-    <p class="collab-desc">This platform is proudly presented through a partnership between <strong style="color:rgba(255,255,255,0.78)">Ava Global</strong> and <strong style="color:rgba(255,255,255,0.78)">Haitham Naksho</strong> — combining global reach with deep industry expertise to deliver world-class freight dispatch training, available remotely to anyone, anywhere.</p>
+    <h2 class="collab-title"><span data-en="A " data-ar="">A </span><em data-en="Collaborative" data-ar="تعاونية">Collaborative</em><span data-en=" Platform" data-ar=" منصة"> Platform</span><br><span data-en="for Dispatch Excellence" data-ar="لتميز التنسيق">for Dispatch Excellence</span></h2>
+    <p class="collab-desc" data-en="This platform is proudly presented through a partnership between " data-ar="تُقدم هذه المنصة بفخر من خلال شراكة بين ">This platform is proudly presented through a partnership between <strong style="color:rgba(255,255,255,0.78)">Ava Global</strong><span data-en=" and " data-ar=" و "> and </span><strong style="color:rgba(255,255,255,0.78)">Haitham Naksho</strong><span data-en=" — combining global reach with deep industry expertise to deliver world-class freight dispatch training, available remotely to anyone, anywhere." data-ar=" — تجمع بين الوصول العالمي والخبرة العميقة في الصناعة لتقديم تدريب عالمي المستوى على تنسيق الشحن، متاح عن بُعد لأي شخص، في أي مكان."> — combining global reach with deep industry expertise to deliver world-class freight dispatch training, available remotely to anyone, anywhere.</span></p>
   </div>
 </section>
 
@@ -768,40 +563,79 @@ nav {
     <span class="footer-x">x</span>
     <span class="footer-logo-text">Haitham Naksho</span>
   </div>
-
   <div class="footer-divider"></div>
-  
-  <p class="footer-text">
-    &copy; 2026 Ava Global x Haitham Naksho Dispatch Training. All rights reserved.
-  </p>
+  <p class="footer-text" data-en="&copy; 2026 Ava Global x Haitham Naksho Dispatch Training. All rights reserved." data-ar="© 2026 تدريب أفا جلوبال وهيثم نقشو للتنسيق. جميع الحقوق محفوظة.">&copy; 2026 Ava Global x Haitham Naksho Dispatch Training. All rights reserved.</p>
 </footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-tag">Enrolment Form</div>
-      <h2 class="modal-title">Register for Package</h2>
+      <div class="modal-tag" data-en="Enrolment Form" data-ar="نموذج التسجيل">Enrolment Form</div>
+      <h2 class="modal-title" data-en="Register for Package" data-ar="سجّل في الباقة">Register for Package</h2>
       <button class="modal-close" onclick="closeModal()">×</button>
     </div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Selected Package</label><input class="form-input" type="text" id="formCourse" readonly></div>
-      <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" id="formName" placeholder="Your name"></div>
+      <div class="form-group"><label class="form-label" data-en="Selected Package" data-ar="الباقة المختارة">Selected Package</label><input class="form-input" type="text" id="formCourse" readonly></div>
+      <div class="form-group"><label class="form-label" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label><input class="form-input" type="text" id="formName" placeholder="Your name"></div>
       <div class="form-row">
-        <div class="form-group" style="margin-bottom:0;"><label class="form-label">Email Address</label><input class="form-input" type="email" id="formEmail" placeholder="you@example.com"></div>
-        <div class="form-group" style="margin-bottom:0;"><label class="form-label">Phone / WhatsApp</label><input class="form-input" type="tel" id="formPhone" placeholder="+1 or +966..."></div>
+        <div class="form-group" style="margin-bottom:0;"><label class="form-label" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label><input class="form-input" type="email" id="formEmail" placeholder="you@example.com"></div>
+        <div class="form-group" style="margin-bottom:0;"><label class="form-label" data-en="Phone / WhatsApp" data-ar="الهاتف / واتساب">Phone / WhatsApp</label><input class="form-input" type="tel" id="formPhone" placeholder="+1 or +966..."></div>
       </div>
-      <div class="form-group" style="margin-top:22px;"><label class="form-label">Country</label><input class="form-input" type="text" id="formCountry" placeholder="e.g. Saudi Arabia, USA..."></div>
+      <div class="form-group" style="margin-top:22px;"><label class="form-label" data-en="Country" data-ar="الدولة">Country</label><input class="form-input" type="text" id="formCountry" placeholder="e.g. Saudi Arabia, USA..."></div>
       <button class="modal-submit" onclick="submitForm()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        Complete Registration via Telegram
+        <span data-en="Complete Registration via Telegram" data-ar="أكمل التسجيل عبر تيليجرام">Complete Registration via Telegram</span>
       </button>
-      <p class="modal-note">You'll be redirected to Telegram with your details pre-filled.<br>Payment and confirmation are handled there securely.</p>
+      <p class="modal-note" data-en="You'll be redirected to Telegram with your details pre-filled. Payment and confirmation are handled there securely." data-ar="سيتم توجيهك إلى تيليجرام مع تعبئة بياناتك مسبقاً. تتم معالجة الدفع والتأكيد هناك بشكل آمن.">You'll be redirected to Telegram with your details pre-filled. Payment and confirmation are handled there securely.</p>
     </div>
   </div>
 </div>
+
 <script>
   let sel = '', selp = '';
+  let currentLang = 'en';
+
+  function translatePage(lang) {
+    currentLang = lang;
+    const elements = document.querySelectorAll('[data-en][data-ar]');
+    elements.forEach(el => {
+      const text = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+      if (text) el.textContent = text;
+    });
+    
+    // Update placeholders
+    const inputs = document.querySelectorAll('input[placeholder]');
+    inputs.forEach(input => {
+      const enPlaceholder = input.getAttribute('data-en');
+      const arPlaceholder = input.getAttribute('data-ar');
+      if (enPlaceholder && arPlaceholder) {
+        input.placeholder = lang === 'en' ? enPlaceholder : arPlaceholder;
+      }
+    });
+    
+    document.documentElement.lang = lang;
+    if (lang === 'ar') {
+      document.body.classList.add('rtl');
+      document.getElementById('langToggle').textContent = 'EN';
+    } else {
+      document.body.classList.remove('rtl');
+      document.getElementById('langToggle').textContent = 'AR';
+    }
+    
+    // Update nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const text = lang === 'en' ? link.getAttribute('data-en') : link.getAttribute('data-ar');
+      if (text) link.textContent = text;
+    });
+  }
+
+  function toggleLanguage() {
+    const newLang = currentLang === 'en' ? 'ar' : 'en';
+    translatePage(newLang);
+  }
+
+  document.getElementById('langToggle').addEventListener('click', toggleLanguage);
 
   function openModal(n, p) {
     sel = n;
@@ -826,39 +660,37 @@ nav {
   }
 
   function submitForm() {
-      const name = document.getElementById('formName').value.trim();
-      const email = document.getElementById('formEmail').value.trim();
-      const phone = document.getElementById('formPhone').value.trim();
-      const country = document.getElementById('formCountry').value.trim();
+    const name = document.getElementById('formName').value.trim();
+    const email = document.getElementById('formEmail').value.trim();
+    const phone = document.getElementById('formPhone').value.trim();
+    const country = document.getElementById('formCountry').value.trim();
 
-      if (!name || !email || !phone || !country) {
-        alert('Please fill in all fields before proceeding.');
-        return;
-      }
+    if (!name || !email || !phone || !country) {
+      alert(currentLang === 'en' ? 'Please fill in all fields before proceeding.' : 'الرجاء تعبئة جميع الحقول قبل المتابعة.');
+      return;
+    }
 
-      // This creates the clean message for the Telegram chat
-      const msg = `📋 Dispatch Course Registration
+    const msg = `📋 ${currentLang === 'en' ? 'Dispatch Course Registration' : 'تسجيل دورة التنسيق'}
 
-  Package: ${sel} — ${selp}
+${currentLang === 'en' ? 'Package' : 'الباقة'}: ${sel} — ${selp}
 
-  👤 Name: ${name}
-  📧 Email: ${email}
-  📱 Phone/WhatsApp: ${phone}
-  🌍 Country: ${country}
+${currentLang === 'en' ? 'Name' : 'الاسم'}: ${name}
+📧 ${currentLang === 'en' ? 'Email' : 'البريد الإلكتروني'}: ${email}
+📱 ${currentLang === 'en' ? 'Phone/WhatsApp' : 'الهاتف/واتساب'}: ${phone}
+🌍 ${currentLang === 'en' ? 'Country' : 'الدولة'}: ${country}
 
-  I would like to enrol and complete payment. Please confirm my spot.`;
+${currentLang === 'en' ? 'I would like to enrol and complete payment. Please confirm my spot.' : 'أود التسجيل وإتمام الدفع. الرجاء تأكيد مقعدي.'}`;
 
-      closeModal();
-
-      // UPDATED LINK: Pointing directly to @ava_global20
-// Use the 'share' endpoint for Telegram Web to ensure the message loads in the browser
-// Replace your window.open line with this:
-      const telegramLink = `https://t.me/ava_global20?text=${encodeURIComponent(msg)}`;
-      window.open(telegramLink, '_blank');   }
+    closeModal();
+    const telegramLink = `https://t.me/ava_global20?text=${encodeURIComponent(msg)}`;
+    window.open(telegramLink, '_blank');
+  }
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModal();
   });
+
+  translatePage('en');
 </script>
 </body>
 </html>
